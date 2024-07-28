@@ -1,1 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bank Churn Prediction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f4f4f4;
+            border-radius: 5px;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        label {
+            display: block;
+            margin-top: 15px;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px 15px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
 
+    <h1>Bank Churn Prediction</h1>
+    {% if result %}
+    <div class="result" style="color: {{ color }}">{{ result }}</div>
+    {% endif %}
+
+
+    <form id="prediction-form" action="/predict" method="post">
+        <h2>Select Model:</h2>
+        <select id="model-option" name="model-option">
+            <option value="svc">SVC Model</option>
+            <option value="logistic">Logistic Model</option>
+        </select>
+
+        <h2 id="model-features-title">SVC Model Features</h2>
+
+        <label for="credit-product-count">Credit Product Count (IL):</label>
+        <input type="number" id="credit-product-count" name="credit-product-count" step="0.01" placeholder="Enter Credit Product Count (IL)">
+
+        <label for="turnover-payment">Turnover Payment:</label>
+        <input type="number" id="turnover-payment" name="turnover-payment" step="0.01" placeholder="Enter Turnover Payment">
+
+        <label for="credit-card-count">Credit Card Count:</label>
+        <input type="number" id="credit-card-count" name="credit-card-count" step="0.01" placeholder="Enter Credit Card Count">
+
+        <label for="transaction-count-supermarket">Transaction Count (Supermarket):</label>
+        <input type="number" id="transaction-count-supermarket" name="transaction-count-supermarket" step="0.01" placeholder="Enter Transaction Count (Supermarket)">
+
+        <label for="turnover-dynamic-cur-1m">Turnover Dynamic (Current 1 Month):</label>
+        <input type="number" id="turnover-dynamic-cur-1m" name="turnover-dynamic-cur-1m" step="0.01" placeholder="Enter Turnover Dynamic (Current 1 Month)">
+
+        <label for="turnover-dynamic-cur-3m">Turnover Dynamic (Current 3 Months):</label>
+        <input type="number" id="turnover-dynamic-cur-3m" name="turnover-dynamic-cur-3m" step="0.01" placeholder="Enter Turnover Dynamic (Current 3 Months)">
+
+        <label for="client-setup-tenure">Client Setup Tenure:</label>
+        <input type="number" id="client-setup-tenure" name="client-setup-tenure" step="0.01" placeholder="Enter Client Setup Tenure">
+
+        <label for="rest-average-current">Rest Average (Current):</label>
+        <input type="number" id="rest-average-current" name="rest-average-current" step="0.01" placeholder="Enter Rest Average (Current)">
+
+        <label for="credit-product-count-tovr">Credit Product Count (TOVR):</label>
+        <input type="number" id="credit-product-count-tovr" name="credit-product-count-tovr" step="0.01" placeholder="Enter Credit Product Count (TOVR)">
+
+        <label for="rest-average-payment">Rest Average (Payment):</label>
+        <input type="number" id="rest-average-payment" name="rest-average-payment" step="0.01" placeholder="Enter Rest Average (Payment)">
+
+        <button type="submit">Predict</button>
+    </form>
+
+   
+    <script>
+        // Change input fields based on selected model
+        document.getElementById('model-option').addEventListener('change', function () {
+            const modelFeaturesTitle = document.getElementById('model-features-title');
+            if (this.value === 'logistic') {
+                modelFeaturesTitle.textContent = 'Logistic Model Features';
+            } else {
+                modelFeaturesTitle.textContent = 'SVC Model Features';
+            }
+        });
+    </script>
+
+</body>
+</html>
